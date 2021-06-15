@@ -83,24 +83,24 @@ void RPC_tag(Arguments *in, Reply *out)   {
    double fix_ang;
    if (Dz < -5) {
       if (Ry > 5 && Ry < 90) {
-         double D = fabs(Dz) / tan(Ry * 3.14 / 180.0f);
+         double D = fabs(Dz) * tan(Ry * 3.14 / 180.0f);
          if (Dx < 0) {
             fix_ang = atan(fabs(Dx) / fabs(Dz));
             car.turn(100, -0.01);
-            for (int i = 0; i < 1.3 * (90 - Ry + fix_ang); i++) ThisThread::sleep_for(12ms);  
+            for (int i = 0; i < 1.3 * (90 - Ry + fix_ang); i++) ThisThread::sleep_for(10ms);  
          } else {
             fix_ang = atan(fabs(Dx) / fabs(Dz));
             car.turn(100, -0.01);
-            for (int i = 0; i < 1.3 * (90 - Ry - fix_ang); i++) ThisThread::sleep_for(12ms);
+            for (int i = 0; i < 1.3 * (90 - Ry - fix_ang); i++) ThisThread::sleep_for(10ms);
          }     
          car.stop();
          car.goStraightCalib(100);
-         for (int n = 0; n < 0.5 * D; n++) ThisThread::sleep_for(10ms);
+         for (int n = 0; n < 4.5 * D; n++) ThisThread::sleep_for(10ms);
          car.turn(100, 0.01);
-         for (int i = 0; i < 1.2 * 90; i++) ThisThread::sleep_for(12ms);
+         for (int i = 0; i < 1.5 * 90; i++) ThisThread::sleep_for(10ms);
          car.stop();                
       } else if (Ry > 270 && Ry < 355) {
-         double D = fabs(Dz) / tan((360 - Ry) * 3.14 / 180.0f);
+         double D = fabs(Dz) * tan((360 - Ry) * 3.14 / 180.0f);
          if (Dx > 0) {
             fix_ang = atan(fabs(Dx) / fabs(Dz));
             car.turn(100, 0.01);
@@ -112,7 +112,7 @@ void RPC_tag(Arguments *in, Reply *out)   {
          } 
          car.stop();
          car.goStraightCalib(100);
-         for (int n = 0; n < 0.5 * D; n++) ThisThread::sleep_for(10ms); 
+         for (int n = 0; n < 4.5 * D; n++) ThisThread::sleep_for(10ms); 
          car.turn(100, -0.01);
          for (int i = 0; i < 1.2 * 90; i++) ThisThread::sleep_for(12ms);
          car.stop();                 
@@ -168,7 +168,7 @@ void line(Arguments *in, Reply *out) {
         car.turn(70, 0.1);
         ThisThread::sleep_for(800ms);
         car.turn(80, -0.6);
-        ThisThread::sleep_for(10s);
+        ThisThread::sleep_for(8400ms);
         car.stop();
         ctrl = 0;
     }
