@@ -81,7 +81,7 @@ void RPC_tag(Arguments *in, Reply *out)   {
    double D;
 
    double fix_ang;
-   if (Dz < -5) {
+   if (Dz < -5.5) {
       if (Ry > 5 && Ry < 90) {
          double D = fabs(Dz) * tan(Ry * 3.14 / 180.0f);
          if (Dx < 0) {
@@ -104,17 +104,17 @@ void RPC_tag(Arguments *in, Reply *out)   {
          if (Dx > 0) {
             fix_ang = atan(fabs(Dx) / fabs(Dz));
             car.turn(100, 0.01);
-            for (int i = 0; i < 1.1 * (90 - (360 - Ry) + fix_ang); i++) ThisThread::sleep_for(10ms);  
+            for (int i = 0; i < 1.5 * (90 - (360 - Ry) + fix_ang); i++) ThisThread::sleep_for(11ms);  
          } else {
             fix_ang = atan(fabs(Dx) / fabs(Dz));
             car.turn(100, 0.01);
-            for (int i = 0; i < 1.1 * (90 - (360 - Ry) - fix_ang); i++) ThisThread::sleep_for(10ms);
+            for (int i = 0; i < 1.5 * (90 - (360 - Ry) - fix_ang); i++) ThisThread::sleep_for(10ms);
          } 
          car.stop();
          car.goStraightCalib(100);
          for (int n = 0; n < 4.5 * D; n++) ThisThread::sleep_for(10ms); 
-         car.turn(100, -0.01);
-         for (int i = 0; i < 1.2 * 90; i++) ThisThread::sleep_for(12ms);
+         car.turn(90, -0.01);
+         for (int i = 0; i < 1.5 * 90; i++) ThisThread::sleep_for(10ms);
          car.stop();                 
       } else car.goStraightCalib(8);
    } else {
@@ -131,7 +131,7 @@ void line(Arguments *in, Reply *out) {
     double ang = in->getArg<double>();
 
     if (Dz == 9000)
-        if (ang > 170 || ang < 160)
+        if (ang > 170 || ang < 100)
             if (x2 > 100 && x2 < 150) {          // turn left
                 car.turn(80, 0.1);
                 ThisThread::sleep_for(300ms);
@@ -165,10 +165,10 @@ void line(Arguments *in, Reply *out) {
     dur.reset();
     
     if (val*17700.4f < 20 && ctrl) {
-        car.turn(70, 0.1);
+        car.turn(90, 0.1);
         ThisThread::sleep_for(800ms);
         car.turn(80, -0.6);
-        ThisThread::sleep_for(8400ms);
+        ThisThread::sleep_for(8787ms);
         car.stop();
         ctrl = 0;
     }
