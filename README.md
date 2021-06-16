@@ -5,6 +5,7 @@
  Fifth, input the information of region, director, and parallel and vertical distance just like HW4_Part1, the car will park to the position you desire.
  
  Note.
+ main.py is the openMV code.
  Sometimes the camera can not detect the tag when the turn back.
  Line detection to object is easy affected by the background information.
  The picture of object and tag position is attached. 
